@@ -1,0 +1,57 @@
+//This is a commentline
+//17p6057
+
+public class evenPrimeThread 
+{
+    static int Count_even = 0;
+    static int Count_prime = 0;
+    //dummyCount = 0;
+    
+public static void checkPrime(int n){  
+        int m=0;
+        int flag=0;    
+        m=n/2;      
+        if(n==0||n==1){  
+         flag = 1;      
+        }
+        
+        else{  
+         for(int i=2;i<=m;i++){      
+          if(n%i==0){  
+           flag=1;      
+           break;      
+          }      
+         }      
+         
+         if(flag==0)  
+          {Count_prime +=1;}  
+        }
+      }
+      
+    public static void main(String[] args) {
+        Runnable r = new Runnable1();
+        Thread t = new Thread(r);
+        t.start();
+        Runnable r2 = new Runnable2();
+        Thread t2 = new Thread(r2);
+        t2.start();
+    }
+}
+
+class Runnable2 implements Runnable{
+    public void run(){
+        for (int i = 1; i <= 10000; i++) 
+        evenPrimeThread.checkPrime(i);
+        System.out.println("Number of Prime numbers from 1 to 10000 are :"+evenPrimeThread.Count_prime);
+    }
+}
+class Runnable1 implements Runnable{
+    public void run(){
+        for(int i = 1; i <= 10000; i++){
+            if(i%2 == 0){
+                evenPrimeThread.Count_even+=1;
+            }
+        }
+        System.out.println("Number of Even numbers from 1 to 10000 are :"+evenPrimeThread.Count_even);
+    }
+}
